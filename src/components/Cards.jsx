@@ -1,4 +1,3 @@
-import React from "react";
 import TokenRoomCard from "./TokenCard";
 
 const Card = ({ roomNo, tokenNo, isActive }) => {
