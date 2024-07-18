@@ -1,17 +1,61 @@
 import "./App.css";
 import CardSlider from "./components/CardSlider";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import PusherFunction from "./components/pusher";
+import { PatientIdProvider } from "./context/usePatient";
+import ProtectedRoute from "./components/Protected";
+import { Footer, Header, Login, Unauthorized, NotFound } from "./pages";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Outlet,
+} from "react-router-dom";
+
+const Root = () => (
+  <>
+    <Header />
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <Outlet />
+    </div>
+    <PusherFunction />
+    <Footer />
+  </>
+);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      {
+        path: "/",
+        element: <Login />,
+      },
+      {
+        path: "/cards",
+        element: (
+          <ProtectedRoute>
+            <CardSlider />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/unauthorized",
+        element: <Unauthorized />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
-    <>
-      <Header />
-      <div className="flex justify-center items-center h-screen bg-gray-100">
-        <CardSlider />
-      </div>
-      <Footer />
-    </>
+    <PatientIdProvider>
+      <RouterProvider router={router} />
+    </PatientIdProvider>
   );
 }
 

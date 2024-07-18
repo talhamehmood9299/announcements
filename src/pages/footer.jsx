@@ -1,28 +1,5 @@
-import Marquee from "react-fast-marquee";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaPhoneVolume } from "react-icons/fa6";
-
-// const Footer = () => {
-//   return (
-//     // <div className="flex flex-col">
-//     //   <div className="flex-1 bg-[#1E328F]">
-//     //     <Marquee speed={200}>
-//     //       <p className="text-white text-base whitespace-nowrap my-5">
-//     //         This is a scrolling paragraph. It moves horizontally across the
-//     //         screen.
-//     //       </p>
-//     //     </Marquee>
-//     //   </div>
-//     // </div>
-
-//     <>
-//       <div>
-//         <IoLocationOutline />
-//       </div>
-//       <div></div>
-//     </>
-//   );
-// };
 
 const Footer = () => {
   return (
