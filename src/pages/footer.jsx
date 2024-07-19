@@ -1,5 +1,6 @@
 import { IoLocationOutline } from "react-icons/io5";
 import { FaPhoneVolume } from "react-icons/fa6";
+import qrCode from "/qrCode.png";
 
 const Footer = () => {
   return (
@@ -21,7 +22,7 @@ const Footer = () => {
         <p className="text-md font-serif font-bold text-blue-900">
           Scan To Visit
         </p>
-        <img src="public/qrCode.png" alt="QR Code" className="w-20 h-20" />
+        <img src={qrCode} alt="QR Code" className="w-20 h-20" />
       </div>
     </div>
   );
