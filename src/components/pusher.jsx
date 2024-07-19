@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import Pusher from "pusher-js";
 import { usePatientId } from "../context/usePatient";
 import { fetchTokens } from "../services";
+import { useSelector } from "react-redux";
 
 function PusherFunction() {
+  const locationId = useSelector((state) => state.auth.selectedLocationId);
   const { setPatientId } = usePatientId();
 
   useEffect(() => {
@@ -12,13 +14,13 @@ function PusherFunction() {
     });
     const channel = pusher.subscribe("call-channel");
     channel.bind("call-event", function (data) {
-      fetchTokens(data.patient_id);
+      fetchTokens(data.patient_id, locationId);
     });
 
     return () => {
       pusher.unsubscribe("call-channel");
     };
-  }, [setPatientId]);
+  }, [locationId, setPatientId]);
 
   return <div></div>;
 }

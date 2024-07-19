@@ -15,11 +15,32 @@ let config = {
   },
 };
 
+let config1 = {
+  method: "get",
+  maxBodyLength: Infinity,
+  url: `${apiUrl}/api/v1/locations`,
+  headers: {
+    client_id: clientId,
+    auth_token: authToken,
+    "Content-Type": "application/json",
+  },
+};
+
 export const getTokens = async (locationId) => {
   try {
     config.params = { location_id: locationId };
     const response = await axios.request(config);
     return response.data.patients;
+  } catch (error) {
+    console.error("Error fetching tokens:", error.message);
+    throw error;
+  }
+};
+
+export const getLocation = async () => {
+  try {
+    const response = await axios.request(config1);
+    return response.data.addresses;
   } catch (error) {
     console.error("Error fetching tokens:", error.message);
     throw error;

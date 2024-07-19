@@ -3,16 +3,16 @@ import Pusher from "pusher-js";
 import Cards from "./Cards";
 import { getTokens } from "../services/api";
 import { usePatientId } from "../context/usePatient";
+import { useSelector } from "react-redux";
 
 const CardSlider = () => {
   const [cardsData, setCardsData] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const locationId = useSelector((state) => state.auth.selectedLocationId);
   const { patientId } = usePatientId();
 
-  const fetchAllTokens = async () => {
+  const fetchAllTokens = async (locationId) => {
     try {
-      const locationId = "12";
       const data = await getTokens(locationId);
 
       let filteredTokens = data
@@ -35,24 +35,30 @@ const CardSlider = () => {
   };
 
   useEffect(() => {
+    if (locationId) {
+      fetchAllTokens(locationId);
+    }
+  }, [locationId]);
+
+  useEffect(() => {
     const pusher = new Pusher(import.meta.env.VITE_PUSHER_KEY, {
       cluster: "mt1",
     });
-    const channel = pusher.subscribe("call-channel");
-    const channel1 = pusher.subscribe("end-channel");
-    channel.bind("call-event", function (data) {
-      fetchAllTokens();
+    const callChannel = pusher.subscribe("call-channel");
+    const endChannel = pusher.subscribe("end-channel");
+    callChannel.bind("call-event", function (data) {
+      fetchAllTokens(locationId);
     });
-    channel1.bind("end-event", function (data) {
+    endChannel.bind("end-event", function (data) {
       console.log(data, "end-event");
-      fetchAllTokens();
+      fetchAllTokens(locationId);
     });
 
     return () => {
       pusher.unsubscribe("call-channel");
       pusher.unsubscribe("end-channel");
     };
-  }, [patientId]);
+  }, [locationId]);
 
   useEffect(() => {
     if (cardsData.length > 0) {

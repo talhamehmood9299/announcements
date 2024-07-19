@@ -1,8 +1,8 @@
 import { getTokens } from "./api";
 
-export const fetchTokens = async (patientId) => {
+export const fetchTokens = async (patientId, locationId) => {
+  console.log("Fetching in fetchToken", locationId);
   try {
-    const locationId = "12";
     const data = await getTokens(locationId);
 
     let filteredTokens = data
@@ -20,9 +20,12 @@ export const fetchTokens = async (patientId) => {
     const filteredToken = activetoken.filter(
       (item) => item.currentPatientId === patientId
     );
-    speakTokenNumber(filteredToken);
 
-    return filteredToken;
+    if (filteredToken) {
+      speakTokenNumber(filteredToken);
+    } else {
+      return filteredToken;
+    }
   } catch (error) {
     console.error("Error fetching tokens:", error);
   }
@@ -30,9 +33,10 @@ export const fetchTokens = async (patientId) => {
 
 export const speakTokenNumber = (data) => {
   const speakToken = Object.assign(data.map((item) => item.tokenNo));
+  const roomNo = Object.assign(data.map((item) => item.roomNo));
   console.log("speakTokenNumber", speakToken);
   const speech = new SpeechSynthesisUtterance(
-    `Token number ${speakToken} is active.`
+    `Token number ${speakToken}, please come to room ${roomNo}.`
   );
   speech.volume = 1;
   speech.rate = 1;
