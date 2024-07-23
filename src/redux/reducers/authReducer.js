@@ -4,6 +4,7 @@ const initialState = {
   isAuthenticated: false,
   selectedLocation: "",
   selectedLocationId: "",
+  selectedAddress: "",
 };
 
 const authSlice = createSlice({
@@ -12,6 +13,7 @@ const authSlice = createSlice({
   reducers: {
     login: (state) => {
       state.isAuthenticated = true;
+      localStorage.setItem("isAuthenticated", "true");
     },
     logout: (state) => {
       state.isAuthenticated = false;
@@ -21,6 +23,7 @@ const authSlice = createSlice({
     setSelectedLocation: (state, action) => {
       state.selectedLocation = action.payload.location;
       state.selectedLocationId = action.payload.locationId;
+      state.selectedAddress = action.payload.address;
     },
   },
 });

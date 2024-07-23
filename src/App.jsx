@@ -10,9 +10,11 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
+import Toastify from "./components/Toastify";
 
 const Root = () => (
   <>
+    <Toastify />
     <Header />
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <Outlet />

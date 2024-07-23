@@ -6,17 +6,25 @@ import { getLocation } from "../services/api";
 import Select from "../components/Select";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebase";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [location, setLocation] = useState([]);
   const [selectedLocation, setSelectedLocationLocal] = useState("");
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [error, setError] = useState("");
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate("/cards");
+  //   }
+  // }, []);
 
   useEffect(() => {
     const getLocations = async () => {
@@ -26,6 +34,7 @@ const Login = () => {
           value: item.city,
           label: item.city,
           location_id: item.location_id,
+          address: item.address,
         }));
         setLocation(options);
       } catch (error) {
@@ -49,14 +58,20 @@ const Login = () => {
           setSelectedLocation({
             location: locationItem.value,
             locationId: locationItem.location_id,
+            address: locationItem.address,
           })
         );
       }
       dispatch(login());
+      toast.success("Login successful");
       navigate("/cards");
     } catch (error) {
       console.error("Error logging in:", error.message);
-      setError(error.message);
+      if (error.message === "INVALID_LOGIN_CREDENTIALS") {
+        toast.error("Incorrect email or password");
+      } else {
+        toast.error("Incorrect email or password");
+      }
     }
   };
 
@@ -81,6 +96,7 @@ const Login = () => {
           Sign in to your account
         </div>
         <Select
+          required
           value={selectedLocation}
           onChange={handleLocationChange}
           options={location}
