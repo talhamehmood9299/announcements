@@ -7,7 +7,7 @@ const Header = () => {
       <div className="container px-24 py-4 flex items-center">
         <div className="bg-white cover rounded-md p-2">
           <Link to="/">
-            <img src={Logo} alt="Site Logo" className="w-[135px] h-8" />
+             <img src={Logo} alt="Site Logo" className="w-[135px]" />
           </Link>
         </div>
       </div>

@@ -10,6 +10,7 @@ import {
   Route,
   Outlet,
 } from "react-router-dom";
+import VideoLayout from "./components/VideoLayout";
 
 const Root = () => (
   <>
@@ -35,7 +36,9 @@ const router = createBrowserRouter([
         path: "/cards",
         element: (
           <ProtectedRoute>
-            <CardSlider />
+            <VideoLayout>
+            
+            </VideoLayout>
           </ProtectedRoute>
         ),
       },

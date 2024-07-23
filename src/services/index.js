@@ -27,7 +27,7 @@ export const fetchTokens = async (patientId, locationId) => {
       return filteredToken;
     }
   } catch (error) {
-    console.error("Error fetching tokens:", error);
+    console.error("Error Fetching Token:", error);
   }
 };
 
