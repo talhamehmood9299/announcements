@@ -1,5 +1,4 @@
 import "./App.css";
-import CardSlider from "./components/CardSlider";
 import PusherFunction from "./components/pusher";
 import { PatientIdProvider } from "./context/usePatient";
 import ProtectedRoute from "./components/Protected";
@@ -11,6 +10,7 @@ import {
   Outlet,
 } from "react-router-dom";
 import Toastify from "./components/Toastify";
+import VideoLayout from "./components/VideoLayout";
 
 const Root = () => (
   <>
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         path: "/cards",
         element: (
           <ProtectedRoute>
-            <CardSlider />
+            <VideoLayout />
           </ProtectedRoute>
         ),
       },
