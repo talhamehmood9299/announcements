@@ -33,8 +33,7 @@ const Footer = () => {
       <footer className="bg-gray-800 text-white">
         <div className="absolute bottom-0 w-full py-6  bg-blue-900 text-white  flex justify-between items-center">
           <Marquee speed={200} delay={0}>
-            Your marquee content goes here. It could be text, images, or any
-            other content you want to scroll.
+            {selectedAddress}
           </Marquee>
         </div>
       </footer>
