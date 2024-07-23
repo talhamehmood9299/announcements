@@ -83,8 +83,9 @@ const CardSlider = () => {
       ));
 
   return (
+    // mt-16 md:mt-64
     <div className="container mx-auto px-4">
-      <div className="flex flex-col md:flex-row md:flex-wrap justify-center mt-16 md:mt-64">
+      <div className="flex flex-col md:flex-row md:flex-wrap justify-center">
         {renderCards(0, 3)}
       </div>
       <div className="flex flex-col md:flex-row md:flex-wrap justify-center">

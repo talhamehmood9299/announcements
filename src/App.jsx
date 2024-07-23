@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Toastify from "./components/Toastify";
 import VideoLayout from "./components/VideoLayout";
+import CardSlider from "./components/CardSlider";
 
 const Root = () => (
   <>
@@ -37,7 +38,8 @@ const router = createBrowserRouter([
         path: "/cards",
         element: (
           <ProtectedRoute>
-            <VideoLayout />
+            {/* <VideoLayout /> */}
+            <CardSlider />
           </ProtectedRoute>
         ),
       },
