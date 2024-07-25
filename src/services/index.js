@@ -21,22 +21,26 @@ export const fetchTokens = async (patientId, locationId) => {
       (item) => item.currentPatientId === patientId
     );
 
-    if (filteredToken) {
-      speakTokenNumber(filteredToken);
+    console.log(filteredToken)
+
+    if (filteredToken.length > 0) {
+      console.log(filteredToken[0])
+      speakTokenNumber(filteredToken[0]);
     } else {
-      return filteredToken;
+      return [];;
     }
   } catch (error) {
     console.error("Error Fetching Token:", error);
-  }
+  } 
 };
 
 export const speakTokenNumber = (data) => {
-  const speakToken = Object.assign(data.map((item) => item.tokenNo));
-  const roomNo = Object.assign(data.map((item) => item.roomNo));
-  console.log("speakTokenNumber", speakToken);
+  // const speakToken = Object.assign(data.map((item) => item.tokenNo));
+  // const roomNo = Object.assign(data.map((item) => item.roomNo));
+  const { tokenNo, roomNo } = data;
+  console.log("speakTokenNumber", tokenNo);
   const speech = new SpeechSynthesisUtterance(
-    `Token number ${speakToken}, please come to room ${roomNo}.`
+    `Token number ${tokenNo}, please come to room ${roomNo}.`
   );
   speech.volume = 1;
   speech.rate = 1;
