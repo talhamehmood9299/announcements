@@ -15,10 +15,21 @@ const CardSlider = () => {
     try {
       const data = await getTokens(locationId);
 
-      let filteredTokens = data
+      let recentItemsMap = new Map();
+
+      data
         .filter((item) => item.status === "active")
         .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-        .slice(0, 6);
+        .forEach((item) => {
+          if (!recentItemsMap.has(item.patient_id)) {
+            recentItemsMap.set(item.patient_id, item);
+          }
+        });
+      
+      let filteredTokens = Array.from(recentItemsMap.values()).slice(0, 6);
+
+      console.log(filteredTokens)
+      
 
       const activeCards = filteredTokens.map((item) => ({
         id: item.id,
